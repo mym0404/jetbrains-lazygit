@@ -7,7 +7,7 @@
 <!-- Plugin description -->
 Since any IntelliJ IDE doesn't really support an easy way to immediately open a terminal in the 'editor' panel
 I've decided to create one which opens LazyGit as an editor panel terminal.
-The only requirement of this plugin is that you have LazyGit installed, and you'll be able to add keybinds either
+The only requirement of this plugin is that you have [Jesse Duffield's](https://github.com/jesseduffield) [LazyGit](https://github.com/jesseduffield/lazygit) installed, and you'll be able to add keybinds either
 in any IntelliJ IDE or through ideavimrc with action 'LazyGit.Open'. When you exit lazygit the terminal itself also exits.
 
 For now this is all the plugin does, maybe in the future I'll add an option to add any TUI you want.
