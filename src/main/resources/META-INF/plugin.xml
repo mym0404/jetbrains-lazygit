@@ -1,8 +1,8 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>nl.zaxiure.jetbrains.lazygit</id>
+    <id>happy.mjstudio.jetbrains.lazygit</id>
     <name>LazyGit in Editor Terminal</name>
-    <vendor>Zaxiure</vendor>
+    <vendor>mjstudio</vendor>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>org.jetbrains.plugins.terminal</depends>
@@ -10,6 +10,6 @@
 
     <actions>
         <action id="LazyGit.Open"
-                class="nl.zaxiure.jetbrains.lazygit.action.LazygitAction" text="Open Lazygit"/>
+                class="happy.mjstudio.jetbrains.lazygit.action.LazygitAction" text="Open Lazygit"/>
     </actions>
 </idea-plugin>
