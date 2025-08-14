@@ -3,25 +3,34 @@ package happy.mjstudio.jetbrains.lazygit.action
 import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.application.ApplicationManager
-import com.intellij.sh.run.ShRunner
 import org.jetbrains.plugins.terminal.TerminalToolWindowManager
 
 class LazygitAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
-        ApplicationManager
-            .getApplication()
-            .getService(
-                ShRunner::class.java,
-            ).run(e.project!!, "lazygit;exit", e.project?.basePath!!, "Lazygit", true)
-        val terminalToolWindowManager = TerminalToolWindowManager.getInstance(e.project!!)
+        val project = e.project ?: return
+        val workingDirectory = project.basePath ?: return
 
-        val terminalWidget = terminalToolWindowManager.terminalWidgets.find { terminal -> terminal.terminalTitle.buildTitle() == "Lazygit" }
+        val terminalManager = TerminalToolWindowManager.getInstance(project)
 
-        if (terminalWidget != null) {
-            val actionManager = ActionManager.getInstance()
-            val action = actionManager.getAction("Terminal.MoveToEditor")
-            actionManager.tryToExecute(action, null, terminalWidget?.component, null, true)
+        // Create terminal in tool window first
+        val terminalWidget = terminalManager.createLocalShellWidget(workingDirectory, "Lazygit", true)
+
+        // Execute lazygit command
+        terminalWidget.executeCommand("lazygit")
+
+        // Move terminal to editor tab
+        val actionManager = ActionManager.getInstance()
+        val moveToEditorAction = actionManager.getAction("Terminal.MoveToEditor")
+
+        // Execute the move action with the terminal widget as context
+        if (moveToEditorAction != null) {
+            actionManager.tryToExecute(
+                moveToEditorAction,
+                null,
+                terminalWidget.component,
+                null,
+                true,
+            )
         }
     }
 }
